@@ -85,12 +85,12 @@ Follow the official guides to install the necessary drivers and tools for GPU su
 Once you have your `.env` file configured and prerequisites installed, you can build and run the container:
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
-### What Happens After Running `docker-compose up -d --build`:
+### What Happens After Running `docker compose up -d --build`:
 
-- The first time you run `docker-compose`, a new Docker image is built. During this process, the `entrypoint.sh` script is used to regenerate the keys (coldkey and hotkey) inside the container based on the environment variables you have set.
+- The first time you run `docker compose`, a new Docker image is built. During this process, the `entrypoint.sh` script is used to regenerate the keys (coldkey and hotkey) inside the container based on the environment variables you have set.
 - The `.bittensor` folder inside the container is mounted as a volume in your current directory under the path `./container-data/.bittensor`. This ensures that the generated keys and any other data remain persistent between container restarts.
 - After the keys are regenerated, the following steps are executed:
   1. **Conda Environment Activation**: The `bitmind` Conda environment is activated to ensure that all required packages are available for the subsequent steps.
@@ -107,7 +107,7 @@ This ensures the validator is correctly configured and ready.
 To ensure everything is running properly, you can check the logs:
 
 ```bash
-docker logs bitmind_validator
+docker logs bitmind_validator --follow
 ```
 
-If everything is set up correctly, you should see your validator starting and the wallet keys being generated as expected.
+If everything is set up correctly, you should see your validator logs.
