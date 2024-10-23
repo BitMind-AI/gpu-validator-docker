@@ -38,18 +38,18 @@ HOTKEY_MNEMONIC=
 ```
 
 ### Explanation of Key Variables:
-- **NETUID**: Your Network User ID, options are `34` (for mainnet) and `168`.
+- **NETUID**: Subnet uid, options are `34` (for finney) and `168` (for test).
 - **SUBTENSOR_NETWORK**: Network name, options include `finney` (mainnet), `test`, or `local`.
-- **SUBTENSOR_CHAIN_ENDPOINT**: The WebSocket endpoint to connect to. Default is for the Finney mainnet.
-- **VALIDATOR_AXON_PORT**: The port used by the validator service, default is `8092`.
+- **SUBTENSOR_CHAIN_ENDPOINT**: The WebSocket endpoint to connect to. 
+- **VALIDATOR_AXON_PORT**: The port used by the validator service.
 - **WANDB_API_KEY**: Your Weights & Biases API key for experiment tracking.
-- **HUGGING_FACE_TOKEN**: Your Hugging Face token for accessing model APIs.
+- **HUGGING_FACE_TOKEN**: Your Hugging Face token for accessing models.
 - **COLDKEY_ADDRESS**: Your wallet coldkey address.
 - **HOTKEY_MNEMONIC**: The mnemonic phrase for regenerating your wallet hotkey.
 
 ## Step 2: Modify Dockerfile to Fit Your Machine Setup
 
-The base image in the Dockerfile can be changed depending on your host machine’s configuration. When choosing the base image, **make sure to use the one with the `cudnn-devel` tag** for proper cuDNN support in development. You can find appropriate CUDA base images from the [NVIDIA NGC Container Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags).
+The base image in the Dockerfile can be changed depending on your host machine’s configuration. When choosing the base image, **make sure to use one with the `cudnn-devel` tag** for proper cuDNN support and development headers, and ensure it is based on Ubuntu for compatibility. You can find appropriate CUDA base images from the [NVIDIA NGC Container Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags).
 
 ### Example Modification:
 
@@ -59,8 +59,7 @@ If your machine has a specific CUDA version installed, you can change the base i
 ARG BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04
 ```
 
-### Important: Use `cudnn-devel` Tag
-Ensure that when selecting your base image, you include the `cudnn-devel` in the tag to support CUDA and cuDNN development environments.
+In this example, the base image is set to `nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04`. You can change this to match your CUDA version.
 
 ## Step 3: Host Machine Prerequisites
 
