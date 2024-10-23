@@ -49,4 +49,6 @@ python neurons/validator.py \
   --subtensor.chain_endpoint $SUBTENSOR_CHAIN_ENDPOINT \
   --wallet.name $WALLET_NAME \
   --wallet.hotkey $WALLET_HOTKEY \
-  --axon.port $VALIDATOR_AXON_PORT
+  --axon.port $VALIDATOR_AXON_PORT \
+  --no-self-heal \
+  --no-auto-updates
