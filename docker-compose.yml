@@ -11,4 +11,11 @@ services:
       - ./container-data/.bittensor:/root/.bittensor
     env_file:
       - .env
-    
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
