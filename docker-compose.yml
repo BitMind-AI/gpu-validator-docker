@@ -1,0 +1,14 @@
+services:
+  bitmind_validator:
+    build: 
+      context: .
+    container_name: bitmind_validator
+    restart: always
+    entrypoint: ./entrypoint.sh
+    ports:
+      - '${VALIDATOR_AXON_PORT}:${VALIDATOR_AXON_PORT}'
+    volumes:
+      - ./container-data/.bittensor:/root/.bittensor
+    env_file:
+      - .env
+    
