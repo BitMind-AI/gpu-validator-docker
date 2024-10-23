@@ -47,21 +47,7 @@ HOTKEY_MNEMONIC=
 - **COLDKEY_ADDRESS**: Your wallet coldkey address.
 - **HOTKEY_MNEMONIC**: The mnemonic phrase for regenerating your wallet hotkey.
 
-## Step 2: Modify Dockerfile to Fit Your Machine Setup
-
-The base image in the Dockerfile can be changed depending on your host machine’s configuration. When choosing the base image, **make sure to use one with the `cudnn-devel` tag** for proper cuDNN support and development headers, and ensure it is based on Ubuntu for compatibility. You can find appropriate CUDA base images from the [NVIDIA NGC Container Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags).
-
-### Example Modification:
-
-If your machine has a specific CUDA version installed, you can change the base image in the Dockerfile by modifying the `BASE_IMAGE` build argument.
-
-```dockerfile
-ARG BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04
-```
-
-In this example, the base image is set to `nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04`. You can change this to match your CUDA version.
-
-## Step 3: Host Machine Prerequisites
+## Step 2: Host Machine Prerequisites
 
 Before running the Docker container, ensure that your host machine has the following software installed:
 
@@ -78,6 +64,20 @@ Follow the official guides to install the necessary drivers and tools for GPU su
 - [Install CUDA Toolkit](https://developer.nvidia.com/cuda-downloads)
 - [Install cuDNN](https://developer.nvidia.com/cudnn)
 - [Install NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
+## Step 3: Modify Dockerfile to Fit Your Machine Setup
+
+The base image in the Dockerfile can be changed depending on your host machine’s configuration. When choosing the base image, **make sure to use one with the `cudnn-devel` tag** for proper cuDNN support and development headers, and ensure it is based on Ubuntu for compatibility. You can find appropriate CUDA base images from the [NVIDIA NGC Container Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags).
+
+### Example Modification:
+
+If your machine has a specific CUDA version installed, you can change the base image in the Dockerfile by modifying the `BASE_IMAGE` build argument.
+
+```dockerfile
+ARG BASE_IMAGE=nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04
+```
+
+In this example, the base image is set to `nvcr.io/nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04`. You can change this to match your CUDA version.
 
 ## Step 4: Build and Run the Docker Container
 
