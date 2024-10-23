@@ -9,6 +9,7 @@ services:
       - '${VALIDATOR_AXON_PORT}:${VALIDATOR_AXON_PORT}'
     volumes:
       - ./container-data/.bittensor:/root/.bittensor
+      - ./container-data/.cache/huggingface:/root/.cache/huggingface
     env_file:
       - .env
     runtime: nvidia

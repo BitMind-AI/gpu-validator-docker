@@ -90,17 +90,19 @@ docker compose up -d --build
 
 ### What Happens After Running `docker compose up -d --build`:
 
-- The first time you run `docker compose`, a new Docker image is built. During this process, the `entrypoint.sh` script is used to regenerate the keys (coldkey and hotkey) inside the container based on the environment variables you have set.
-- The `.bittensor` folder inside the container is mounted as a volume in your current directory under the path `./container-data/.bittensor`. This ensures that the generated keys and any other data remain persistent between container restarts.
-- After the keys are regenerated, the following steps are executed:
-  1. **Conda Environment Activation**: The `bitmind` Conda environment is activated to ensure that all required packages are available for the subsequent steps.
-  2. **Coldkey and Hotkey Regeneration**: The coldkeypub and hotkey are regenerated using `btcli` based on the values from the environment variables.
-  3. **Login to Weights & Biases**: The script attempts to log in to Weights & Biases using the provided API key. If the login fails, the process stops.
-  4. **Login to Hugging Face**: The script logs in to Hugging Face with the provided token. If login fails, the process stops.
-  5. **Verification of Access to Synthetic Image Generation Models**: The script verifies access to synthetic image generation models by running a Python script (`verify_models.py`). If verification fails, the process stops.
-  6. **Run the Validator**: The validator is run using `neurons/validator.py` with the provided network, wallet, and axon port details.
+- **Build and Image Creation**: The first time you run `docker compose`, it builds a new Docker image using the Dockerfile. 
+- **Entrypoint Script Execution**: During the container startup, the `entrypoint.sh` script regenerates keys (coldkey and hotkey) inside the container using the environment variables provided in your `.env` file.
+- **Volume Mounting**: Two volumes are mounted to your local machine to ensure persistence of data between container restarts:
+  - `./container-data/.bittensor` is mounted to `/root/.bittensor` inside the container. This stores keys and other configuration files.
+  - `./container-data/.cache/huggingface` is mounted to `/root/.cache/huggingface`. This stores Hugging Face cache files for persisted access to models.
+- **Conda Environment Activation**: The `bitmind` Conda environment is activated to load all necessary dependencies for the validator service.
+- **Key Regeneration**: The coldkeypub and hotkey are regenerated using `btcli` based on the values in the `.env` file.
+- **Weights & Biases Login**: The container logs in to Weights & Biases using the provided API key. If the login fails, the process halts.
+- **Hugging Face Login**: The script logs in to Hugging Face with the provided token. If login fails, the process stops.
+- **Model Verification**: A Python script (`verify_models.py`) checks your access to synthetic image generation models. If access is not available, the process stops.
+- **Validator Execution**: The validator is launched using `neurons/validator.py` with the network and wallet details you provided, along with the specified axon port.
 
-This ensures the validator is correctly configured and ready.
+This ensures that your validator is correctly set up and all required services are running smoothly.
 
 ## Step 5: Validate the Setup
 
